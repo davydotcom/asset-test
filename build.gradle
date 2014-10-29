@@ -1,0 +1,26 @@
+apply plugin: 'asset-pipeline'
+apply plugin: 'less-asset-pipeline'
+
+assets {
+    minifyJs = false
+    minifyCss = true
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'http://dl.bintray.com/bertramlabs/asset-pipeline'
+        }
+        // mavenLocal()
+
+    }
+    dependencies {
+        classpath 'com.bertramlabs.plugins:asset-pipeline-core:2.0.1'
+        classpath 'com.bertramlabs.plugins:less-asset-pipeline:2.0.0'
+    }
+}
+
+
+
+// bintrayUpload.dependsOn build, sourcesJar, javadocJar
