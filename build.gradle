@@ -1,9 +1,10 @@
 apply plugin: 'asset-pipeline'
-apply plugin: 'less-asset-pipeline'
+apply plugin: 'watch'
+//apply plugin: 'less-asset-pipeline'
 
 assets {
     minifyJs = false
-    minifyCss = true
+    minifyCss = false
 }
 
 buildscript {
@@ -11,16 +12,26 @@ buildscript {
         jcenter()
         maven {
             url 'http://dl.bintray.com/bertramlabs/asset-pipeline'
+
         }
-        // mavenLocal()
+        mavenLocal()
 
     }
     dependencies {
-        classpath 'com.bertramlabs.plugins:asset-pipeline-core:2.0.1'
-        classpath 'com.bertramlabs.plugins:less-asset-pipeline:2.0.0'
+        classpath 'com.bertramlabs.plugins:asset-pipeline-core:2.0.2-SNAPSHOT'
+        classpath 'com.bertramlabs.plugins:less-asset-pipeline:2.0.1-SNAPSHOT'
+        classpath 'com.bluepapa32:gradle-watch-plugin:0.1.3'
     }
 }
 
+watch {
+    resources {
+        files fileTree(dir:'assets', include: '**/*')
+        tasks 'assetCompile'
+    }
+}
 
-
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
 // bintrayUpload.dependsOn build, sourcesJar, javadocJar
